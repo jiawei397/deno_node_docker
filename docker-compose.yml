@@ -24,4 +24,12 @@ services:
     ports:
       - "8002:8000"
     volumes:
-      - ./oakjs/mod.js:/app/mod.js        
+      - ./oakjs/mod.js:/app/mod.js   
+  deno:
+    build:
+      context: ./deno
+      dockerfile: Dockerfile
+    ports:
+      - "8003:8000"
+    volumes:
+      - ./deno/mod.ts:/app/mod.ts           
