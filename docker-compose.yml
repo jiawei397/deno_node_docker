@@ -1,0 +1,27 @@
+# docker-compose build or up
+version: '3'
+services:
+  koa:
+    build:
+      context: ./koa
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./koa/main.js:/app/main.js
+  oak:
+    build:
+      context: ./oak
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./oak/mod.ts:/app/mod.ts    
+  oakjs:
+    build:
+      context: ./oak
+      dockerfile: Dockerfile
+    ports:
+      - "8002:8000"
+    volumes:
+      - ./oak/mod.js:/app/mod.js        
