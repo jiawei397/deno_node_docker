@@ -19,9 +19,9 @@ services:
       - ./oak/mod.ts:/app/mod.ts    
   oakjs:
     build:
-      context: ./oak
+      context: ./oakjs
       dockerfile: Dockerfile
     ports:
       - "8002:8000"
     volumes:
-      - ./oak/mod.js:/app/mod.js        
+      - ./oakjs/mod.js:/app/mod.js        
