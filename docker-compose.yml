@@ -32,4 +32,12 @@ services:
     ports:
       - "8003:8000"
     volumes:
-      - ./deno/mod.ts:/app/mod.ts           
+      - ./deno/mod.ts:/app/mod.ts     
+  node:
+    build:
+      context: ./node
+      dockerfile: Dockerfile
+    ports:
+      - "8004:8000"
+    volumes:
+      - ./node/main.js:/app/main.js               
