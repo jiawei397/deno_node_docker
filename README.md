@@ -2,7 +2,7 @@
 
 My team has been using Deno for more than a year. But I found that the memory consumption in docker container is relatively large, which is more than twice that of nodejs with the same function. 
 
-This is frustrating, but strangely, if I use Deno inside the program MemoryUsage () is even better than nodejs' process. The value of MemoryUsage () is smaller, but it is another case in docker stats.
+This is frustrating, but strangely, if I use Deno inside the program `Deno.memoryUsage()` is even better than nodejs' process which used `process.memoryUsage()`. The value is smaller, but it is another case in docker stats.
 
 [Here](https://github.com/jiawei397/deno_node_docker) is the test sample of docker I used, I use the origin nodejs http and origin Deno http test, and also test koa and oak.
 
