@@ -1,0 +1,17 @@
+FROM denoland/deno:alpine-1.23.2  as builder
+
+WORKDIR /app
+
+COPY ./mod.ts .
+
+RUN deno compile --allow-net -o oak mod.ts \
+    && chmod +x oak
+
+FROM denoland/deno:alpine-1.23.2
+# FROM alpine:latest
+
+WORKDIR /app
+
+COPY --from=builder  /app/oak /app
+
+CMD ./oak

@@ -8,9 +8,8 @@ WORKDIR /app
 RUN chown -R deno /app
 RUN chmod 755 /app
 
-ADD . .
+ADD ./mod.ts .
 
-RUN deno compile --allow-net -o oak mod.ts \
-    && chmod +x ./oak
+RUN deno compile --allow-net -o oak mod.ts
 
 CMD ./oak

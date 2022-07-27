@@ -16,7 +16,7 @@ services:
     ports:
       - "8001:8000"
     volumes:
-      - ./oak/mod.ts:/app/mod.ts    
+      - ./oak/mod.ts:/app/mod.ts
   oakjs:
     build:
       context: ./oakjs
@@ -24,20 +24,32 @@ services:
     ports:
       - "8002:8000"
     volumes:
-      - ./oakjs/mod.js:/app/mod.js   
+      - ./oakjs/mod.js:/app/mod.js
+  oak_compile:
+    build:
+      context: ./oak
+      dockerfile: Dockerfile_compile
+    ports:
+      - "8003:8000"
+  oak_compile_builder:
+    build:
+      context: ./oak
+      dockerfile: Dockerfile_compile_builder
+    ports:
+      - "8004:8000"
   deno:
     build:
       context: ./deno
       dockerfile: Dockerfile
     ports:
-      - "8003:8000"
+      - "8005:8000"
     volumes:
-      - ./deno/mod.ts:/app/mod.ts     
+      - ./deno/mod.ts:/app/mod.ts
   node:
     build:
       context: ./node
       dockerfile: Dockerfile
     ports:
-      - "8004:8000"
+      - "8006:8000"
     volumes:
-      - ./node/main.js:/app/main.js               
+      - ./node/main.js:/app/main.js
