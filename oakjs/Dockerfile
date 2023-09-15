@@ -1,4 +1,4 @@
-FROM denoland/deno:alpine-1.23.2
+FROM docker.io/denoland/deno:alpine-1.36.2
 
 EXPOSE 8000
 

@@ -25,12 +25,6 @@ services:
       - "8002:8000"
     volumes:
       - ./oakjs/mod.js:/app/mod.js
-  oak_compile:
-    build:
-      context: ./oak
-      dockerfile: Dockerfile_compile
-    ports:
-      - "8003:8000"
   oak_compile_builder:
     build:
       context: ./oak

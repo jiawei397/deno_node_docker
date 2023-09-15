@@ -1,17 +1,33 @@
-FROM denoland/deno:alpine-1.23.2  as builder
+ARG DENO_VERSION=1.36.2
+FROM denoland/deno:alpine-${DENO_VERSION} AS builder
 
 WORKDIR /app
 
-COPY ./mod.ts .
+# Cache the dependencies as a layer
+# COPY deno.json .
 
-RUN deno compile --allow-net -o oak mod.ts \
-    && chmod +x oak
+# These steps will be re-run upon each file change in your working directory:
+ADD . .
 
-FROM denoland/deno:alpine-1.23.2
-# FROM alpine:latest
+# Compile the main app
+RUN deno cache mod.ts
+RUN deno compile --allow-net --allow-read --allow-env mod.ts -o main 
+
+# Use a Docker multi-stage build to create a lean production image.
+# Use the same alpine image as deno one because of glibc requirement.
+FROM frolvlad/alpine-glibc:alpine-3.17 as runner
 
 WORKDIR /app
 
-COPY --from=builder  /app/oak /app
+# Prefer not to run as root.
+RUN addgroup --gid 1000 deno \
+    && adduser --uid 1000 --disabled-password deno --ingroup deno \
+    && chown deno:deno /app/
+USER deno
 
-CMD ./oak
+COPY --from=builder /app/main .
+
+# The port that your application listens to.
+EXPOSE 8000
+
+CMD ["./main"]
